@@ -9,6 +9,9 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import DelPlaceConfirmPopup from './DelPlaceConfirmPopup';
+import SignUp from './SignUp';
+import SignIn from './SignIn';
+import { Route } from 'react-router';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -120,26 +123,34 @@ function App() {
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
         <Header />
-        <Main 
-          onCardClick={handleCardClick}
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onEditAvatar={handleEditAvatarClick}
-          cards={cards}
-          onCardLike={handleCardLike}
-          onCardDelete={handleDeletePlaceClick}
-        />
-        <Footer />
+        <Route path="/">
+          <Main 
+            onCardClick={handleCardClick}
+            onEditProfile={handleEditProfileClick}
+            onAddPlace={handleAddPlaceClick}
+            onEditAvatar={handleEditAvatarClick}
+            cards={cards}
+            onCardLike={handleCardLike}
+            onCardDelete={handleDeletePlaceClick}
+          />
+          <Footer />
 
-        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
+          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
 
-        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} />
+          <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} />
 
-        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
+          <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
 
-        <DelPlaceConfirmPopup delCardId={deleteCard} isOpen={isDelPlaceConfirmPopupOpen} onClose={closeAllPopups} onDeletePlace={handleCardDelete} />
+          <DelPlaceConfirmPopup delCardId={deleteCard} isOpen={isDelPlaceConfirmPopupOpen} onClose={closeAllPopups} onDeletePlace={handleCardDelete} />
 
-        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+          <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+        </Route>
+        <Route path="/sign-up">
+          <SignUp/>
+        </Route>
+        <Route path="/sign-in">
+          <SignIn/>
+        </Route>
       </CurrentUserContext.Provider>
     </div>
   );
