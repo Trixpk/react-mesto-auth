@@ -1,0 +1,6 @@
+@import url('./__img/card-detail__img.css');
+@import url('./__title/card-detail__title.css');
+
+.card-detail {
+    position: relative;
+}

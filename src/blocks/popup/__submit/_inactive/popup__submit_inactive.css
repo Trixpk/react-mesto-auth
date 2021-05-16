@@ -1,0 +1,4 @@
+.popup__submit_inactive {
+    background: #e5e5e5;
+    pointer-events: none;
+}

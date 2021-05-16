@@ -1,0 +1,26 @@
+.profile__avatar-wrap {
+    position: relative;
+}
+
+.profile__avatar-wrap:after {
+    content: '';
+    background-image: url('../../../images/avatar-icon.svg');
+    width: 26px;
+    height: 26px;
+    display: block;
+    position: absolute;
+    top: calc(50% - 13px);
+    left: calc(50% - 13px);
+    opacity: 0;
+}
+
+.profile__avatar-wrap:hover .profile__avatar{
+    cursor: pointer;
+    opacity: .5;
+}
+
+.profile__avatar-wrap:hover:after {
+    opacity: 1;
+    cursor: pointer;
+    transition: .5s;
+}

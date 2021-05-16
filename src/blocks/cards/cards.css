@@ -1,0 +1,33 @@
+@import url('./__item/cards__item.css');
+@import url('./__img/cards__img.css');
+@import url('./__info/cards__info.css');
+@import url('./__info-buttons/cards__info-buttons.css');
+@import url('./__like/cards__like.css');
+@import url('./__like-counter/cards__like-counter.css');
+@import url('./__trash/cards__trash.css');
+@import url('./__trash/_hidden/cards__trash_hidden.css');
+@import url('./__trash/_visible/cards__trash_visible.css');
+@import url('./__like/_active/cards__like_active.css');
+@import url('./__info-wrap/cards__info-wrap.css');
+@import url('./__title/cards__title.css');
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px 17px;
+}
+
+@media (max-width: 900px) {
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(auto-fit, 1fr);
+    }
+}
+
+@media (max-width: 605px) {
+    .cards {
+        padding-top: 36px;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(auto-fit, 1fr);
+    }
+}
