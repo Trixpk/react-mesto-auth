@@ -1,0 +1,9 @@
+.sign-up__caption-link {
+    color: #fff;
+    text-decoration: none;
+    transition: .5s;
+}
+
+.sign-up__caption-link:hover {
+    opacity: .6;
+}

@@ -1,0 +1,8 @@
+.tool-tip__message {
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: 900;
+    max-width: 358px;
+    text-align: center;
+    margin: 32px 0 60px 0;
+}

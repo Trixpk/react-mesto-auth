@@ -1,6 +1,10 @@
 @import url('./__logo/header__logo.css');
 @import url('./__logo-image/header__logo-image.css');
+@import url('./__auth/header__auth.css');
 
 .header {
     border-bottom: 1px solid #545454;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
