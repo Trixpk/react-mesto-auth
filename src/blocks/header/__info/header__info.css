@@ -1,0 +1,9 @@
+.header__info {
+
+}
+
+@media (max-width: 673px) {
+    .header__info {
+        display: none;
+    }
+}

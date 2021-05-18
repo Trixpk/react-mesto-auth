@@ -10,9 +10,3 @@
 .header__logo:hover {
     opacity: .5;
 }
-
-@media (max-width: 940px) {
-    .header__logo {
-        margin: 28px 0 31px 27px;
-    }
-}

@@ -29,6 +29,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [deleteCard, setDeteleteCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({});
+  const [userData, setUserData] = useState({});
   const [registerSuccess, setRegisterSuccess] = useState(false);
   const [cards, setCards] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -60,7 +61,9 @@ function App() {
   const checkToken = () => {
     if(localStorage.getItem('jwt')) {
       let jwt = localStorage.getItem('jwt');
-      apiAuth.checkToken(jwt).then((res) => {
+      apiAuth.checkToken(jwt)
+      .then((res) => {
+        setUserData({email: res.data.email});
         setLoggedIn(true);
         history.push('/');
       })
@@ -162,19 +165,27 @@ function App() {
   }
 
   const handleLogin = (data) => {
-    apiAuth.login(data).then((res) => {
+    apiAuth.login(data)
+    .then((res) => {
       setLoggedIn(true);
       localStorage.setItem('jwt', res.token);
+      checkToken();
       history.push('/');
     }).catch(err => {
       console.log(`Ошибка при авторизации ${err}`);
     })
   }
 
+  const handleSignOut = () => {
+    localStorage.removeItem('jwt');
+    setLoggedIn(false);
+    history.push('/sign-in');
+  }
+
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
-          <Header />
+          <Header userData={userData} loggedIn={loggedIn} onSignOut={handleSignOut} />
           <Switch>
             <ProtectedRoute
               exact

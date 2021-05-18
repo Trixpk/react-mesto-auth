@@ -1,0 +1,9 @@
+.header__sign-out {
+    background: transparent;
+    border: none;
+    color: #a9a9a9;
+}
+
+.header__sign-out:hover {
+    cursor: pointer;
+}

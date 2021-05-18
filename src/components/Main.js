@@ -8,8 +8,8 @@ export default function Main(props) {
     return (
         <main>
           <section className="container profile">
-              <div className="profile__avatar-wrap">
-                  <img onClick={props.onEditAvatar} className="profile__avatar" src={currentUser.avatar} alt={currentUser.name} />
+              <div className="profile__avatar-wrap" onClick={props.onEditAvatar}>
+                  <img className="profile__avatar" src={currentUser.avatar} alt={currentUser.name} />
               </div>
               <div className="profile__info">
                   <h1 className="profile__name">{currentUser.name}</h1>

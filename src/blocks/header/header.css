@@ -1,6 +1,12 @@
 @import url('./__logo/header__logo.css');
 @import url('./__logo-image/header__logo-image.css');
 @import url('./__auth/header__auth.css');
+@import url('./__email/header__email.css');
+@import url('./__sign-out/header__sign-out.css');
+@import url('./__info/header__info.css');
+@import url('./__mobile/header__mobile.css');
+@import url('./__menu-button/header__menu-button.css');
+@import url('./__menu-button-active/header__menu-button-active.css');
 
 .header {
     border-bottom: 1px solid #545454;
