@@ -9,8 +9,6 @@ export default function DelPlaceConfirmPopup (props) {
     }
 
     return (
-        <PopupWithForm onSubmit={handleSubmit} name="del-confirm" title="Вы уверены?" onClose={props.onClose} isOpen={props.isOpen}>
-          <button className="popup__submit" type="submit">Да</button>
-        </PopupWithForm>
+        <PopupWithForm buttonText={props.buttonText} onSubmit={handleSubmit} name="del-confirm" title="Вы уверены?" onClose={props.onClose} isOpen={props.isOpen} />
     );
 }

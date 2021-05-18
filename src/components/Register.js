@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import InfoToolTip from './InfoToolTip';
 
-export default function Register({ onRegister, isPopupOpen, onClose, registerResult }) {
+export default function Register({ onRegister }) {
     const [registerData, setRegisterData] = useState({
         email: '',
         password: ''
@@ -37,7 +36,6 @@ export default function Register({ onRegister, isPopupOpen, onClose, registerRes
                     <Link to="/sign-in" className="sign-up__caption-link"> Войти</Link>    
                 </p>
             </form>
-            <InfoToolTip registerResult={registerResult} onClose={onClose} isPopupOpen={isPopupOpen} />
         </>
     );
 }

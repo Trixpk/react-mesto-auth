@@ -10,6 +10,7 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import DelPlaceConfirmPopup from './DelPlaceConfirmPopup';
+import InfoToolTip from './InfoToolTip';
 import Login from './Login';
 import Register from './Register';
 import {
@@ -26,6 +27,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isDelPlaceConfirmPopupOpen, setIsDelPlaceConfirmPopupOpen] = useState(false);
   const [isRegisterMessagePopupOpen, setIsRegisterMessagePopupOpen] = useState(false);
+  const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [deleteCard, setDeteleteCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({});
@@ -39,15 +41,7 @@ function App() {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
     .then(([dataUser, cards]) => {
       setCurrentUser(dataUser);
-
-      const data = cards.map((item) => ({
-        _id: item._id,
-        likes: item.likes,
-        name: item.name,
-        link: item.link,
-        owner: item.owner
-    }));
-    setCards(data);
+      setCards(cards);
     })
     .catch(err => {
       console.log('Ошибка при получении данных ' + err);
@@ -60,14 +54,16 @@ function App() {
 
   const checkToken = () => {
     if(localStorage.getItem('jwt')) {
-      let jwt = localStorage.getItem('jwt');
+      const jwt = localStorage.getItem('jwt');
       apiAuth.checkToken(jwt)
       .then((res) => {
         setUserData({email: res.data.email});
         setLoggedIn(true);
         history.push('/');
       })
-      
+      .catch(err => {
+        console.log(`Ошибка при проверке токена ${err}`);
+      })
     }
   }
 
@@ -113,6 +109,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
+    setIsImagePopupOpen(false);
     setIsDelPlaceConfirmPopupOpen(false);
     setIsRegisterMessagePopupOpen(false);
     setSelectedCard(null);
@@ -120,6 +117,7 @@ function App() {
 
   const handleCardClick = (card) => {
     setSelectedCard(card);
+    setIsImagePopupOpen(true);
   }
 
   const handleUpdateUser = (data) => {
@@ -201,7 +199,7 @@ function App() {
               onCardDelete={handleDeletePlaceClick}
             />
             <Route path="/sign-up">
-              <Register registerResult={registerSuccess} isPopupOpen={isRegisterMessagePopupOpen} onClose={closeAllPopups} onRegister={handleRegister} />
+              <Register onRegister={handleRegister} />
             </Route>
             <Route path="/sign-in">
               <Login onLogin={handleLogin} />
@@ -212,15 +210,18 @@ function App() {
               }
             </Route>
           </Switch>
-          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
+          <EditProfilePopup buttonText='Сохранить' isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
 
-          <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} />
+          <AddPlacePopup buttonText='Создать' isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} />
 
-          <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
+          <EditAvatarPopup buttonText='Сохранить' isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
 
-          <DelPlaceConfirmPopup delCardId={deleteCard} isOpen={isDelPlaceConfirmPopupOpen} onClose={closeAllPopups} onDeletePlace={handleCardDelete} />
+          <DelPlaceConfirmPopup buttonText='Да' delCardId={deleteCard} isOpen={isDelPlaceConfirmPopupOpen} onClose={closeAllPopups} onDeletePlace={handleCardDelete} />
 
-          <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+          <ImagePopup isOpen={isImagePopupOpen} card={selectedCard} onClose={closeAllPopups} />
+
+          <InfoToolTip registerResult={registerSuccess} onClose={closeAllPopups} isPopupOpen={isRegisterMessagePopupOpen} />
+
           <Footer />
       </CurrentUserContext.Provider>
     </div>

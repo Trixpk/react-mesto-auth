@@ -23,8 +23,8 @@ export default function Login({ onLogin }) {
     return (
         <form className="sign-up" onSubmit={handleSubmit}>
             <h2 className="sign-up__title">Вход</h2>
-            <input onChange={handleChange} name="email" type="email" className="sign-up__input" placeholder="Email" />
-            <input onChange={handleChange} name="password" type="password" className="sign-up__input" placeholder="Пароль" />
+            <input onChange={handleChange} value={loginData.email} name="email" type="email" className="sign-up__input" placeholder="Email" />
+            <input onChange={handleChange} value={loginData.password} name="password" type="password" className="sign-up__input" placeholder="Пароль" />
 
             <button type="submit" className="sign-up__submit">Войти</button>
         </form>
