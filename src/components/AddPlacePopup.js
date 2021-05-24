@@ -1,39 +1,27 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
+import { useFormWithValidation } from '../hooks/useFormWithValidation';
 import PopupWithForm from './PopupWithForm';
 
-export default function AddPlacePopup(props) {
-    const inputNameRef = useRef();
-    const inputLinkRef = useRef();
-    //const [isValid, setIsValid] = useState(false);
+export default function AddPlacePopup({ buttonText, isOpen, onClose, onAddPlace }) {
+    const { values, isValid, handleChange, resetForm, errors } = useFormWithValidation();
+    const errorActiveClass = !isValid ? 'popup__input-error_active' : null;
 
     useEffect(() => {    
-        inputNameRef.current.value = '';
-        inputLinkRef.current.value = '';
-    }, [props.isOpen]);
+        resetForm();
+    }, [isOpen, resetForm]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        props.onAddPlace({
-            name: inputNameRef.current.value,
-            link: inputLinkRef.current.value, 
-        });
+        onAddPlace(values);
     }
-
-    const handleOnIput = (ev) => {
-        console.log(ev.target.validity.valid);
-    }
-
-    const submitButtonClassName = (
-        `popup__submit` //${isValid ? null : 'popup__submit_inactive'} Добавить класс при реализации Валидации
-    );
 
     return (
-        <PopupWithForm buttonText={props.buttonText} name="add-form" title="Новое место" isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit} >
-          <input onInput={handleOnIput} ref={inputNameRef} id="title-input" required minLength="2" maxLength="30" className="popup__field popup__field_name" type="text" placeholder="Название" />
-          <span className="popup__input-error title-input-error">Вы пропустили это поле</span>
-          <input ref={inputLinkRef} id="url-input" required className="popup__field popup__field_link" type="url" placeholder="Ссылка на картинку" />
-          <span className="popup__input-error url-input-error">Введите адрес сайта.</span>
+        <PopupWithForm buttonText={buttonText} name="add-form" title="Новое место" isOpen={isOpen} onClose={onClose} onSubmit={handleSubmit} >
+          <input name="name" id="title-input" value={values.name || ""} onChange={handleChange} required minLength="2" maxLength="30" className="popup__field popup__field_name" type="text" placeholder="Название" />
+          <span className={`popup__input-error title-input-error ${errorActiveClass}`}>{errors.name || ""}</span>
+          <input name="link" id="url-input" value={values.link || "" } onChange={handleChange} required className="popup__field popup__field_link" type="url" placeholder="Ссылка на картинку" />
+          <span className={`popup__input-error url-input-error ${errorActiveClass}`}>{errors.link || ""}</span>
         </PopupWithForm>
     );
 }
